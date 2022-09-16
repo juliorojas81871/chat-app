@@ -8,8 +8,7 @@ const Welcome = ({currentUser}) => {
         <img src={Robot} alt='Robot' />
         <br />
         <h1>
-            Welcome, 
-            {/* <span>{currentUser.username}</span> */}
+            Welcome, <span>{currentUser.username}</span>
         </h1>
         <br />
         <h3>Please select a chat to Start Message</h3>

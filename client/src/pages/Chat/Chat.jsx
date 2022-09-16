@@ -3,18 +3,24 @@ import { Container } from './ChatStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { allUsersRoute } from "../../utils/APIRoutes";
-import { Contacts, Welcome } from '../../components/index'
+import { Contacts, Welcome, ChatContainer } from '../../components/index'
 
 const Chat = () => {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser ] = useState(undefined);
   const[currentChat, setCurrentChat] = useState(undefined);
-
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  // if there is no user in the local user, it will atomataically go to login
   useEffect(() => {
     async function validationMenu() {
-        if (!localStorage.getItem("chat-app-user")) navigate("/login");
-        else setCurrentUser(await JSON.parse(localStorage.getItem('chat-app-user')))     
+        if(!localStorage.getItem("chat-app-user")){
+          navigate("/login");
+        } else {
+           setCurrentUser(await JSON.parse(localStorage.getItem('chat-app-user')))
+           setIsLoaded(true);
+        }     
     }
     validationMenu();
   }, [])
@@ -44,7 +50,13 @@ const Chat = () => {
     <Container>
       <div className='container'>
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
-        <Welcome currentUser={currentUser}/>
+        {isLoaded &&
+          currentChat === undefined ? (
+            <Welcome currentUser={currentUser}/>
+          ) : (
+            <ChatContainer currentChat={currentChat}/>
+          )}
+        
       </div>
     </Container>
   )

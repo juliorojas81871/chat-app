@@ -14,9 +14,9 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
     }
   }, [currentUser]);
 
-  const changeCurrentChat = (index, username) => {
+  const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
-    changeChat(username);
+    changeChat(contact);
   };
 
   return (
@@ -28,23 +28,23 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
             <h3>snappy</h3>
           </div>
           <div className="contacts">
-            {contacts.map(({username, avatarImage, _id}, index) => {
+            {contacts.map((contact, index)=> {
               return (
                 <div
                   className={`contact ${
                     (index === currentSelected) && "selected"
                   }`}
-                  key={_id}
-                  onClick={() => changeCurrentChat(index, username)}
+                  key={contact._id}
+                  onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="avatar">
                     <img
-                      src={`data:image/svg+xml;base64,${avatarImage}`}
+                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
                       alt="avatar"
                     />
                   </div>
                   <div className="username">
-                    <h3>{username}</h3>
+                    <h3>{contact.username}</h3>
                   </div>
                 </div>
               );
