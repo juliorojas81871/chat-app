@@ -68,15 +68,16 @@ module.exports.setAvatar = async (req, res, next) => {
 };
 
 module.exports.getAllUsers = async (req, res, next) => {
-  try {
+    try {
     // $ne selects the documents where the value of the 
     // field is not equal to the specified value
-   const users = await User.find({_id: {$ne: req.parms.id}}.select([
+   const users = await User.find({_id: {$ne: req.params.id}}).select([
     'email',
     'username',
     'avatarImage',
     '_id',
-   ]));
+   ]);
+   return res.json(users);
   } catch (ex) {
     next(ex);
   }
