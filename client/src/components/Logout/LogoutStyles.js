@@ -12,6 +12,6 @@ export const Button = styled.button`
   color: red;
   font-size: 1rem;
   &:hover {
-    background-color: #997af0;
+    background-color: #ffffff34;
   }
 `;
