@@ -20,10 +20,11 @@ export const Container = styled.div`
     }
   }
   .avatars {
-    display: flex;
+    display: grid;
     gap: 2rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     @media (max-width: 768px) {
-      gap: 0rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .avatar {
       border: 0.4rem solid transparent;
@@ -35,9 +36,6 @@ export const Container = styled.div`
       transition: 0.5s ease-in-out;
       img {
         height: 6rem;
-        @media (max-width: 768px) {
-          height: 4.25rem;
-        }
         transition: 0.5s ease-in-out;
       }
     }
