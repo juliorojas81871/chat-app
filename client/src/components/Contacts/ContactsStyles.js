@@ -24,7 +24,7 @@ export const Container = styled.div`
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
-    ${"" /* for the scrollbar for  tuchscreen*/}
+    ${"" /* for the scrollbar for tablets and phones*/}
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {

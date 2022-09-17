@@ -47,18 +47,20 @@ const Chat = () => {
   };
 
   return (
+    <>
     <Container>
       <div className='container'>
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
         {isLoaded &&
           currentChat === undefined ? (
-            <Welcome currentUser={currentUser}/>
+            <Welcome currentUser={currentUser} />
           ) : (
-            <ChatContainer currentChat={currentChat}/>
+            <ChatContainer currentChat={currentChat} currentUser={currentUser} />
           )}
         
       </div>
     </Container>
+    </>
   )
 }
 
