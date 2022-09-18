@@ -8,10 +8,14 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
   const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(() => {
-    if (currentUser) {
-      setCurrentUserImage(currentUser.avatarImage);
-      setCurrentUserName(currentUser.username);
+    async function currentUserData() {
+      const data = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+      setCurrentUserName(data.username);
+      setCurrentUserImage(data.avatarImage);
     }
+    currentUserData();
   }, [currentUser]);
 
   const changeCurrentChat = (index, contact) => {
@@ -28,11 +32,11 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
             <h3>snappy</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index)=> {
+            {contacts.map((contact, index) => {
               return (
                 <div
                   className={`contact ${
-                    (index === currentSelected) && "selected"
+                    index === currentSelected && "selected"
                   }`}
                   key={contact._id}
                   onClick={() => changeCurrentChat(index, contact)}
@@ -49,7 +53,6 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
                 </div>
               );
             })}
-  
           </div>
           <div className="current-user">
             <div className="avatar">

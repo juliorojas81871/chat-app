@@ -6,7 +6,7 @@ export const Container = styled.div`
   gap: 0.1rem;
   overflow: hidden;
   .welcome-header {
-    left:100px;
+    left: 100px;
     background-color: #080420;
     display: flex;
     justify-content: space-between;
@@ -23,22 +23,20 @@ export const Container = styled.div`
       }
     }
   }
-  
-  .welcome{
+
+  .welcome {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     color: white;
     @media (max-width: 768px) {
-      h3{
-        font-size:1.1rem;
-        
+      h3 {
+        font-size: 1.1rem;
       }
-        
-      }
+    }
     img {
-      height: 20rem;      
+      height: 20rem;
     }
     span {
       color: #4e0eff;

@@ -12,28 +12,44 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
 
   useEffect(() => {
     async function getAllMsg() {
-      if(currentChat){
-        const response = await axios.post(getAllMessagesRoute, {
-          from: currentUser._id,
-          to: currentChat._id,
-        });
-        setMessages(response.data);
-      }
+      const data = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+      const response = await axios.post(getAllMessagesRoute, {
+        from: data._id,
+        to: currentChat._id,
+      });
+      setMessages(response.data);
     }
     getAllMsg();
   }, [currentChat]);
 
+  useEffect(() => {
+    const getCurrentChat = async () => {
+      if (currentChat) {
+        await JSON.parse(
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+        )._id;
+      }
+    };
+    getCurrentChat();
+  }, [currentChat]);
+
   const handleSendMsg = async (msg) => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
     socket.current.emit("send-msg", {
       to: currentChat._id,
-      from: currentUser._id,
+      from: data._id,
       message: msg,
     });
     await axios.post(sendMessageRoute, {
-      from: currentUser._id,
+      from: data._id,
       to: currentChat._id,
       message: msg,
     });
+
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
@@ -56,43 +72,41 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
   }, [messages]);
 
   return (
-    currentChat && (
-      <Container>
-        <div className="chat-header">
-          <div className="user-details">
-            <div className="avatar">
-              <img
-                src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                alt=""
-              />
-            </div>
-            <div className="username">
-              <h3>{currentChat.username}</h3>
-            </div>
+    <Container>
+      <div className="chat-header">
+        <div className="user-details">
+          <div className="avatar">
+            <img
+              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+              alt=""
+            />
           </div>
-          <Logout />
+          <div className="username">
+            <h3>{currentChat.username}</h3>
+          </div>
         </div>
-        <div className="chat-messages">
-          {messages.map((message, index) => {
-            return (
-              <div ref={scrollRef} key={uuidv4}>
-                <div
-                  className={`message ${
-                    message.fromSelf ? "sended" : "recieved"
-                  }`}
-                  key={index}
-                >
-                  <div className="content ">
-                    <p>{message.message}</p>
-                  </div>
+        <Logout />
+      </div>
+      <div className="chat-messages">
+        {messages.map((message, index) => {
+          return (
+            <div ref={scrollRef} key={uuidv4}>
+              <div
+                className={`message ${
+                  message.fromSelf ? "sended" : "recieved"
+                }`}
+                key={index}
+              >
+                <div className="content ">
+                  <p>{message.message}</p>
                 </div>
               </div>
-            );
-          })}
-        </div>
-        <ChatInput handleSendMsg={handleSendMsg} />
-      </Container>
-    )
+            </div>
+          );
+        })}
+      </div>
+      <ChatInput handleSendMsg={handleSendMsg} />
+    </Container>
   );
 };
 

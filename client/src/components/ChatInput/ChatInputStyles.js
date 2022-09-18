@@ -28,7 +28,7 @@ export const Container = styled.div`
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
-        ${'' /* for phones an tablets */}
+        ${"" /* for phones an tablets */}
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;

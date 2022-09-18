@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Robot from "../../assets/robot.gif";
 import { Container } from "./WelcomeStyles";
 import { Logout } from "../index";
 
-const Welcome = ({ currentUser }) => {
+const Welcome = () => {
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+      async function getUsername() {
+        setUserName(
+            await JSON.parse(
+              localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+            ).username
+          );
+      }
+      getUsername();
+  }, []);
+
   return (
     <Container>
       <div className="welcome-header">
@@ -18,7 +30,7 @@ const Welcome = ({ currentUser }) => {
         <img src={Robot} alt="Robot" />
         <br />
         <h1>
-          Welcome, <span>{currentUser.username}</span>
+          Welcome, <span>{userName}</span>
         </h1>
         <br />
         <h3>Please select a chat to Start Message</h3>

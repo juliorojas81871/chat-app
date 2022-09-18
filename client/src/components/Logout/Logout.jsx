@@ -4,10 +4,10 @@ import { Button } from "./LogoutStyles";
 
 const Logout = () => {
   const navigate = useNavigate();
-  const handleClick = async() => {
+  const handleClick = async () => {
     localStorage.clear();
-    navigate('/login');
-  }
+    navigate("/login");
+  };
   return <Button onClick={handleClick}>Logout</Button>;
 };
 
