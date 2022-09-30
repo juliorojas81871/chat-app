@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Robot from "../../assets/robot.gif";
 import { Container } from "./WelcomeStyles";
 import { Logout } from "../index";
+import {AiOutlineMenu} from "react-icons/ai";
+import { useStateContext } from '../../contexts/ContextProvider'
 
 const Welcome = () => {
+  const {activeMenu, setActiveMenu } = useStateContext();
   const [userName, setUserName] = useState("");
   useEffect(() => {
       async function getUsername() {
@@ -20,6 +23,10 @@ const Welcome = () => {
     <Container>
       <div className="welcome-header">
         <div className="welcome-sign">
+        <div className="button">
+        <AiOutlineMenu  onClick={() => setActiveMenu(!activeMenu)} />
+
+        </div>
           <div className="sign">
             <h3>Welcome</h3>
           </div>

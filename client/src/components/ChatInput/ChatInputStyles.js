@@ -20,6 +20,7 @@ export const Container = styled.div`
       svg {
         font-size: 1.5rem;
         color: #ffff00c8;
+        margin-left: -1.2rem;
         cursor: pointer;
       }
       .emoji-picker-react {
@@ -85,8 +86,13 @@ export const Container = styled.div`
       &:hover {
         background-color: #ffffff34;
       }
-
       @media screen and (min-width: 768px) and (max-width: 1080px) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1rem;
+        }
+      }
+      @media screen and (max-width: 768px){}
         padding: 0.3rem 1rem;
         svg {
           font-size: 1rem;

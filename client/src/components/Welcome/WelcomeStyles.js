@@ -12,6 +12,20 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    .button{
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: #9a86f3;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #ffffff34;
+        }
+    }
     .welcome-sign {
       display: flex;
       align-items: center;
@@ -19,6 +33,11 @@ export const Container = styled.div`
       .sign {
         h3 {
           color: white;
+        }
+        @media (max-width: 768px) {
+          h3 {
+            font-size: 0.7rem;
+          }
         }
       }
     }
@@ -30,13 +49,19 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
     color: white;
-    @media (max-width: 768px) {
+    img {
+      height: 20rem;
+    }
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 1.1rem;
+      }
       h3 {
         font-size: 1.1rem;
       }
-    }
-    img {
-      height: 20rem;
+      img {
+        height: 10rem;
+      }
     }
     span {
       color: #4e0eff;

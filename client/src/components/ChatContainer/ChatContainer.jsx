@@ -4,10 +4,13 @@ import { Logout, ChatInput } from "../index";
 import { Container } from "./ChatContainerStyles";
 import { sendMessageRoute, getAllMessagesRoute } from "../../utils/APIRoutes";
 import { v4 as uuidv4 } from "uuid";
+import {AiOutlineMenu} from "react-icons/ai";
+import { useStateContext } from '../../contexts/ContextProvider'
 
 const ChatContainer = ({ currentChat, currentUser, socket }) => {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const {activeMenu, setActiveMenu } = useStateContext();
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -75,6 +78,9 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
     <Container>
       <div className="chat-header">
         <div className="user-details">
+        <div className="button">
+          <AiOutlineMenu onClick={() => setActiveMenu(!activeMenu)} />
+        </div>
           <div className="avatar">
             <img
               src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
@@ -88,14 +94,14 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
         <Logout />
       </div>
       <div className="chat-messages">
-        {messages.map((message, index) => {
+        {messages.map((message) => {
           return (
             <div ref={scrollRef} key={uuidv4}>
               <div
                 className={`message ${
                   message.fromSelf ? "sended" : "recieved"
                 }`}
-                key={index}
+                key={message._id}
               >
                 <div className="content ">
                   <p>{message.message}</p>

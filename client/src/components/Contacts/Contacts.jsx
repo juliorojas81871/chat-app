@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/logo.svg";
 import { Container } from "./ContactsStyles";
+import { useStateContext } from '../../contexts/ContextProvider'
 
 const Contacts = ({ contacts, currentUser, changeChat }) => {
+  const {activeMenu, setActiveMenu } = useStateContext();
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -31,7 +33,8 @@ const Contacts = ({ contacts, currentUser, changeChat }) => {
             <img src={Logo} alt="logo" />
             <h3>snappy</h3>
           </div>
-          <div className="contacts">
+  
+          <div className="contacts" onClick={() => setActiveMenu(!activeMenu)}>
             {contacts.map((contact, index) => {
               return (
                 <div

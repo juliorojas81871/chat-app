@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { allUsersRoute, host } from "../../utils/APIRoutes";
 import { Contacts, Welcome, ChatContainer } from "../../components/index";
 import { io } from "socket.io-client";
+import { useStateContext } from '../../contexts/ContextProvider'
 
 const Chat = () => {
   const socket = useRef();
@@ -12,6 +13,7 @@ const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const {activeMenu, setActiveMenu } = useStateContext();
 
   // if there is no user in the local user, it will atomataically go to login
   useEffect(() => {
@@ -60,7 +62,8 @@ const Chat = () => {
   return (
     <>
       <Container>
-        <div className="container">
+      {activeMenu ? (
+        <div className="container open">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {currentChat === undefined ? (
             <Welcome />
@@ -68,6 +71,16 @@ const Chat = () => {
             <ChatContainer currentChat={currentChat} socket={socket} />
           )}
         </div>
+      ) : (
+        <div className="container closed">
+          <Contacts contacts={contacts} changeChat={handleChatChange} />
+          {currentChat === undefined ? (
+            <Welcome />
+          ) : (
+            <ChatContainer currentChat={currentChat} socket={socket} />
+          )}
+        </div>
+      )}
       </Container>
     </>
   );

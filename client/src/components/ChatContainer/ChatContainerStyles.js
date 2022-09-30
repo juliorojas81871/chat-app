@@ -15,9 +15,28 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       gap: 1rem;
+      .button{
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: #9a86f3;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #ffffff34;
+        }
+      }
       .avatar {
         img {
           height: 3rem;
+        }
+        @media screen and (max-width: 768px){
+          img {
+            display: none;
+          }
         }
       }
       .username {
@@ -33,7 +52,6 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
-
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
