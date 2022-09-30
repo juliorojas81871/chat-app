@@ -20,12 +20,18 @@ export const Container = styled.div`
       svg {
         font-size: 1.5rem;
         color: #ffff00c8;
-        margin-left: -1.2rem;
         cursor: pointer;
+        @media screen and (max-width: 768px){
+          margin-left: -1.2rem;
+        }
       }
       .emoji-picker-react {
         position: absolute;
         top: -350px;
+        @media screen and (max-width: 768px){
+          left:-30px;
+          width: 260px;
+        }
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
@@ -92,7 +98,6 @@ export const Container = styled.div`
           font-size: 1rem;
         }
       }
-      @media screen and (max-width: 768px){}
         padding: 0.3rem 1rem;
         svg {
           font-size: 1rem;
