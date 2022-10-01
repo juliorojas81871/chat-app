@@ -25,6 +25,9 @@ export const Container = styled.div`
         &:hover {
           background-color: #ffffff34;
         }
+        @media screen and (min-width: 768px) and (max-width: 33554400px) {
+          display: none;
+        }
     }
     .welcome-sign {
       display: flex;
@@ -33,11 +36,6 @@ export const Container = styled.div`
       .sign {
         h3 {
           color: white;
-        }
-        @media (max-width: 768px) {
-          h3 {
-            font-size: 0.7rem;
-          }
         }
       }
     }
@@ -51,17 +49,6 @@ export const Container = styled.div`
     color: white;
     img {
       height: 20rem;
-    }
-    @media screen and (max-width: 768px) {
-      h1 {
-        font-size: 1.1rem;
-      }
-      h3 {
-        font-size: 1.1rem;
-      }
-      img {
-        height: 10rem;
-      }
     }
     span {
       color: #4e0eff;

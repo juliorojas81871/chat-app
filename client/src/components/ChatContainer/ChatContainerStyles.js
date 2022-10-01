@@ -28,6 +28,9 @@ export const Container = styled.div`
         &:hover {
           background-color: #ffffff34;
         }
+        @media screen and (min-width: 768px) and (max-width: 33554400px) {
+          display: none;
+        }
       }
       .avatar {
         img {

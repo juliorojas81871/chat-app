@@ -98,9 +98,10 @@ export const Container = styled.div`
           font-size: 1rem;
         }
       }
-        padding: 0.3rem 1rem;
+      @media screen and (max-width: 768px){
+        padding: 0.1rem 0.5rem;
         svg {
-          font-size: 1rem;
+          font-size: 0.5rem;
         }
       }
       svg {
