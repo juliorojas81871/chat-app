@@ -24,6 +24,9 @@ export const Container = styled.div`
         @media screen and (max-width: 768px){
           margin-left: -1.2rem;
         }
+        &:hover {
+          opacity: 0.5;
+        }
       }
       .emoji-picker-react {
         position: absolute;

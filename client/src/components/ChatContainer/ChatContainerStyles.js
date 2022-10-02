@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+
   display: grid;
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
@@ -55,6 +56,8 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: grey black;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
