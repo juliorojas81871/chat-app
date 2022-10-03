@@ -27,11 +27,11 @@ phases:
     commands: |
       echo Pushing the Docker image...
       docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      envsubst < "task.template.json" > "task.json"
-      envsubst < "appspec.template.yaml" > "appspec.yaml"
+      envsubst < "server/task.template.json" > "server/task.json"
+      envsubst < "server/appspec.template.yaml" > "server/appspec.yaml"
 artifacts:
   files:
-    - task.json
-    - appspec.yaml
+    - server/task.json
+    - server/appspec.yaml
     - imageDetail.json
   name: "builds/$CODEBUILD_RESOLVED_SOURCE_VERSION/artifacts"
