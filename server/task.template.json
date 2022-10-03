@@ -1,0 +1,96 @@
+{
+    "family": "$TASK_FAMILY",
+    "taskRoleArn": "arn:aws:iam::111060809428:role/ecs-backend-$BUILD_ENV",
+    "executionRoleArn": "arn:aws:iam::111060809428:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+      {
+        "dnsSearchDomains": null,
+        "environmentFiles": null,
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "secretOptions": null,
+          "options": {
+            "awslogs-group": "/ecs/$BUILD_ENV-chat-app",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        },
+        "entryPoint": null,
+        "portMappings": [
+          {
+            "hostPort": 8080,
+            "protocol": "tcp",
+            "containerPort": 8080
+          }
+        ],
+        "command": null,
+        "linuxParameters": null,
+        "cpu": $CONTAINER_CPU,
+        "environment": [
+          {
+            "name": "NO_COLOR",
+            "value": "true"
+          },
+          {
+            "name": "STAGE",
+            "value": "$BUILD_ENV"
+          },
+          {
+            "name": "HOSTING",
+            "value": "AWS"
+          },
+          {
+            "name": "BUILD_HASH",
+            "value": "$CODEBUILD_RESOLVED_SOURCE_VERSION"
+          },
+          {
+            "name": "QUOTES_TABLE_NAME",
+            "value": "quotes-$BUILD_ENV"
+          }
+        ],
+        "resourceRequirements": null,
+        "ulimits": null,
+        "dnsServers": null,
+        "mountPoints": [],
+        "workingDirectory": null,
+        "secrets": [
+            {
+              "name": "MONGO_URL",
+              "valueFrom": "arn:aws:ssm:us-east-1:111060809428:parameter/all/chat-app/mongodb-connection"
+            }
+          ],
+          "dockerSecurityOptions": null,
+          "memory": $CONTAINER_MEMORY,
+          "memoryReservation": null,
+          "volumesFrom": [],
+          "stopTimeout": null,
+          "image": "111060809428.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION",
+          "startTimeout": null,
+          "firelensConfiguration": null,
+          "dependsOn": null,
+          "disableNetworking": null,
+          "interactive": null,
+          "healthCheck": null,
+          "essential": true,
+          "links": null,
+          "hostname": null,
+          "extraHosts": null,
+          "pseudoTerminal": null,
+          "user": null,
+          "readonlyRootFilesystem": null,
+          "dockerLabels": null,
+          "systemControls": null,
+          "privileged": null,
+          "name": "$CONTAINER_NAME"
+        }
+      ],
+      "placementConstraints": [],
+      "memory": "$TASK_MEMORY",
+      "pidMode": null,
+      "requiresCompatibilities": ["FARGATE"],
+      "cpu": "$TASK_CPU",
+      "inferenceAccelerators": null,
+      "proxyConfiguration": null,
+      "volumes": []
+    }

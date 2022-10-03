@@ -1,0 +1,37 @@
+version: 0.2
+
+phases:
+  install:
+    commands: |
+      CONTAINER_NAME=${CONTAINER_NAME:-chat-app-$BUILD_ENV}
+      CONTAINER_PORT=${CONTAINER_PORT:-8080}
+      IMAGE_REPO=${IMAGE_REPO:-chat-app-$BUILD_ENV}
+      CONTAINER_CPU=${CONTAINER_CPU:-128}
+      CONTAINER_MEMORY=${CONTAINER_MEMORY:-512}
+      TASK_MEMORY=${TASK_MEMORY:-2048}
+      TASK_CPU=${TASK_CPU:-512}
+      TASK_FAMILY=${TASK_FAMILY:-chat-app-$BUILD_ENV}
+  pre_build:
+    commands: |
+      echo Logging in to Amazon ECR...
+      aws sts get-caller-identity
+      aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      # export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain shurable --domain-owner 111060809428 --query authorizationToken --output text)
+  build:
+    commands: |
+      echo Building the Docker image...
+      cd server
+      docker build --build-arg CODEARTIFACT_AUTH_TOKEN --build-arg BUILD_HASH=$CODEBUILD_RESOLVED_SOURCE_VERSION -t $IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION . 
+      docker tag $IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
+  post_build:
+    commands: |
+      echo Pushing the Docker image...
+      docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
+      envsubst < "task.template.json" > "task.json"
+      envsubst < "appspec.template.yaml" > "appspec.yaml"
+artifacts:
+  files:
+    - task.json
+    - appspec.yaml
+    - imageDetail.json
+  name: "builds/$CODEBUILD_RESOLVED_SOURCE_VERSION/artifacts"
