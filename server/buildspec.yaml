@@ -27,8 +27,8 @@ phases:
     commands: |
       echo Pushing the Docker image...
       docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      envsubst < "server/task.template.json" > "server/task.json"
-      envsubst < "server/appspec.template.yaml" > "server/appspec.yaml"
+      envsubst < "./server/task.template.json" > "./server/task.json"
+      envsubst < "./server/appspec.template.yaml" > "./server/appspec.yaml"
 artifacts:
   files:
     - server/task.json
