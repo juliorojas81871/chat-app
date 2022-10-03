@@ -21,7 +21,7 @@ export const Container = styled.div`
         font-size: 1.5rem;
         color: #ffff00c8;
         cursor: pointer;
-        @media screen and (max-width: 768px){
+        @media screen and (max-width: 768px) {
           margin-left: -1.2rem;
         }
         &:hover {
@@ -31,20 +31,22 @@ export const Container = styled.div`
       .emoji-picker-react {
         position: absolute;
         top: -350px;
-        @media screen and (max-width: 768px){
-          left:-30px;
+        @media screen and (max-width: 768px) {
+          left: -30px;
           width: 260px;
         }
         background-color: #080420;
         box-shadow: 0 5px 10px #9a86f3;
         border-color: #9a86f3;
-        ${"" /* for phones an tablets */}
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;
           &-thumb {
             background-color: #9a86f3;
           }
+        }
+        .emoji-scroll-wrapper {
+          scrollbar-width: thin;
         }
         .emoji-categories {
           button {
@@ -101,7 +103,7 @@ export const Container = styled.div`
           font-size: 1rem;
         }
       }
-      @media screen and (max-width: 768px){
+      @media screen and (max-width: 768px) {
         padding: 0.1rem 0.5rem;
         svg {
           font-size: 0.5rem;

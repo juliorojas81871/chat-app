@@ -25,7 +25,6 @@ export const Container = styled.div`
     overflow: auto;
     gap: 0.8rem;
     scrollbar-width: thin;
-    ${"" /* for the scrollbar for tablets and phones*/}
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
